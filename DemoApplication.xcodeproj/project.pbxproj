@@ -88,6 +88,7 @@
 				2246B4C5201ACBB3008AAF85 /* Model */,
 				2246B4C6201ACBC3008AAF85 /* Control */,
 				2236E97B2019D0C000BE2212 /* Main.storyboard */,
+				223072A9201AE849002D4AEC /* DataService.swift */,
 				223072A7201AD8B1002D4AEC /* ChannelCell.swift */,
 				2236E9632019C2A800BE2212 /* Assets.xcassets */,
 				2236E9652019C2A800BE2212 /* LaunchScreen.storyboard */,
@@ -114,7 +115,6 @@
 				2236E9712019C67000BE2212 /* ListTableVC.swift */,
 				2246B4C9201AD532008AAF85 /* ChannelTableView.swift */,
 				2236E9752019C9B100BE2212 /* OnlineTableView.swift */,
-				223072A9201AE849002D4AEC /* DataService.swift */,
 			);
 			path = Control;
 			sourceTree = "<group>";

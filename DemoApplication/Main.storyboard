@@ -124,6 +124,7 @@
                             <constraint firstItem="hxW-pl-K5k" firstAttribute="top" secondItem="FXf-pW-pxd" secondAttribute="bottom" constant="8" id="w4t-Rh-6er"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="eyt-sS-YXt"/>
                     <connections>
                         <outlet property="textFieldLoginEmail" destination="FXf-pW-pxd" id="BPY-iG-OjN"/>
                         <outlet property="textFieldLoginPassword" destination="hxW-pl-K5k" id="MPd-yK-pII"/>
@@ -132,7 +133,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="287" y="399"/>
+            <point key="canvasLocation" x="577" y="349"/>
         </scene>
         <!--Online-->
         <scene sceneID="YAy-6a-nMw">
@@ -173,10 +174,10 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <state key="normal" title="Sign Out"/>
+                                <connections>
+                                    <action selector="signoutButtonPressed:" destination="EWM-o2-OPN" eventType="touchUpInside" id="LwC-w7-CoB"/>
+                                </connections>
                             </button>
-                            <connections>
-                                <action selector="signoutButtonPressed:" destination="EWM-o2-OPN" id="0H5-QE-xxc"/>
-                            </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
@@ -185,12 +186,12 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Qb4-PU-39W" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2814" y="484"/>
+            <point key="canvasLocation" x="3102" y="1115"/>
         </scene>
-        <!--Grocery List-->
+        <!--Danh Sach Nhan Vien-->
         <scene sceneID="GDd-Ja-sb5">
             <objects>
-                <tableViewController title="Grocery List" id="WRG-qR-ebT" customClass="ListTableVC" customModule="DemoApplication" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController title="Danh Sach Nhan Vien" id="WRG-qR-ebT" customClass="ListTableVC" customModule="DemoApplication" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="60" sectionHeaderHeight="22" sectionFooterHeight="22" id="rzx-FE-o1H">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -219,9 +220,6 @@
                                         </label>
                                     </subviews>
                                 </tableViewCellContentView>
-                                <connections>
-                                    <segue destination="EWM-o2-OPN" kind="show" identifier="ListToUsers" id="nHh-7j-Gl7"/>
-                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -236,14 +234,19 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="addButton" destination="QGM-U2-dHv" id="vKN-rh-2WV"/>
+                        <segue destination="EWM-o2-OPN" kind="show" identifier="ListToUsers" id="Rd7-oJ-blk"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fRX-FK-8Yw" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1865" y="399"/>
+            <point key="canvasLocation" x="2313" y="755"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="5Ek-Z0-CEa">
             <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="weB-oN-cRh" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="OO3-Em-sDU" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="M8w-Wp-a2U">
@@ -261,9 +264,8 @@
                         <segue destination="WRG-qR-ebT" kind="relationship" relationship="rootViewController" id="hTr-Ov-qdh"/>
                     </connections>
                 </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="weB-oN-cRh" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1053" y="399"/>
+            <point key="canvasLocation" x="1407" y="585"/>
         </scene>
         <!--Danh sách kênh chat-->
         <scene sceneID="s0g-PA-F1N">
@@ -345,7 +347,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tYr-qH-gLO" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3622" y="537"/>
+            <point key="canvasLocation" x="3960.8000000000002" y="536.58170914542734"/>
         </scene>
         <!--Chat View Controller-->
         <scene sceneID="a1b-bX-fC2">
@@ -363,7 +365,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uNQ-H3-P0I" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4492" y="559"/>
+            <point key="canvasLocation" x="4831.1999999999998" y="558.17091454272872"/>
         </scene>
     </scenes>
 </document>

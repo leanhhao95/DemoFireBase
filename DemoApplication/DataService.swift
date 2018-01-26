@@ -10,6 +10,7 @@ import Foundation
 
 class DataServices {
     static var share: DataServices = DataServices()
-    var name: String = ""
+    var nameDisplay: String = ""
     var senderID: String = ""
+    var email: String = ""
 }

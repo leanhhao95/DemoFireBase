@@ -10,6 +10,7 @@ import UIKit
 import Firebase
 class ListTableVC: UITableViewController {
     
+    @IBOutlet weak var addButton: UIBarButtonItem!
     // MARK: Constants
     let listToUsers = "ListToUsers"
     
@@ -28,7 +29,7 @@ class ListTableVC: UITableViewController {
         
         tableView.allowsMultipleSelectionDuringEditing = false
         
-        userCountBarButtonItem = UIBarButtonItem(title: "1",
+        userCountBarButtonItem = UIBarButtonItem(title: "",
                                                  style: .plain,
                                                  target: self,
                                                  action: #selector(userCountButtonDidTouch))
@@ -36,13 +37,14 @@ class ListTableVC: UITableViewController {
         navigationItem.leftBarButtonItem = userCountBarButtonItem
         
         usersRef.observe(.value, with: { snapshot in
+            
             if snapshot.exists() {
                 self.userCountBarButtonItem?.title = snapshot.childrenCount.description
             } else {
                 self.userCountBarButtonItem?.title = "0"
             }
         })
-        ref.queryOrdered(byChild: "completed").observe(.value, with: { snapshot in
+        ref.queryOrdered(byChild: "position").observe(.value, with: { snapshot in
             var newItems: [ListModel] = []
             
             for item in snapshot.children {
@@ -52,7 +54,7 @@ class ListTableVC: UITableViewController {
             self.items = newItems
             self.tableView.reloadData()
         })
-//         kiểm tra login
+//         kiểm tra login , remove user đã log out
         Auth.auth().addStateDidChangeListener { auth, user in
             guard let user = user else { return }
             self.user = Users(authData: user)
@@ -61,7 +63,26 @@ class ListTableVC: UITableViewController {
             currentUserRef.onDisconnectRemoveValue()
         }
     }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        registerNotification()
+    }
+    func registerNotification() {
+        NotificationCenter.default.addObserver(self, selector: #selector(reloadData), name: Notification.Name.init("removeUser"), object: nil)
+    }
+    @objc func reloadData() {
+            let currentUserRef = self.usersRef.child(self.user.uid)
+           currentUserRef.removeValue()
     
+        tableView.reloadData()
+    }
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        checkAdmin()
+    }
     // MARK: UITableView Delegate methods
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -77,14 +98,20 @@ class ListTableVC: UITableViewController {
         return cell
     }
     
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        return true
-    }
-    
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+       
         if editingStyle == .delete {
             items[indexPath.row].ref?.removeValue()
         }
+        
+    }
+    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        if DataServices.share.email == "admin@gmail.com" {
+            return true
+        } else {
+            return false
+        }
+        return false
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -100,17 +127,12 @@ class ListTableVC: UITableViewController {
         
         let saveAction = UIAlertAction(title: "Save",
                                        style: .default) { _ in
-                                        // 1
-//                                        guard let firstTextField = alert.textFields[0],let secondTextField = alert.textFields[1],
-//                                            let firstText = firstTextField.text, let secondText = secondTextField.text else { return }
+         
                                         let nameText = alert.textFields![0]
                                         let positionText = alert.textFields![1]
                                         guard let firstText = nameText.text, let _ = positionText.text else {return}
-                                        // 2
                                         let listItem = ListModel(name: nameText.text!, position: positionText.text!)
-                                        // 3
                                         let firstItemRef = self.ref.child(firstText.lowercased())
-                                        // 4
                                         firstItemRef.setValue(listItem.toAnyObject())
                                         
         }
@@ -131,7 +153,32 @@ class ListTableVC: UITableViewController {
     }
     
     @objc func userCountButtonDidTouch() {
-        performSegue(withIdentifier: listToUsers, sender: nil)
+       
+        if userCountBarButtonItem.title == "0" {
+            showAlert(vc: self, title: "Chưa đăng nhập", message: "Cần đăng nhập để tham gia phòng chat")
+        } else {
+             performSegue(withIdentifier: listToUsers, sender: nil)
+        }
     }
-    
+   
+    func checkAdmin() {
+        if DataServices.share.email == "admin@gmail.com" {
+            addButton.isEnabled = true
+        } else {
+            addButton.isEnabled = false
+        }
+    }
+    func showAlert(vc: UIViewController, title:String, message: String) {
+        
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.alert)
+        
+        let okAction = UIAlertAction(title: "Ok", style: UIAlertActionStyle.default) { (result : UIAlertAction) -> Void in
+            self.dismiss(animated: true, completion: nil)
+        }
+        let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.default) { (result : UIAlertAction) -> Void in}
+        alertController.addAction(okAction)
+          alertController.addAction(cancelAction)
+        vc.present(alertController, animated: true, completion: nil)
+    }
 }
+

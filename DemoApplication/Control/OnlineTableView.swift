@@ -13,7 +13,6 @@ class OnlineTableView: UITableViewController {
     // MARK: Constants
     let userCell = "UserCell"
     let usersRef = Database.database().reference(withPath: "online")
-   
     
     // MARK: Properties
     var currentUsers: [String] = []
@@ -51,7 +50,7 @@ class OnlineTableView: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let cell = tableView.cellForRow(at: indexPath)
         performSegue(withIdentifier: "nextToChannelView", sender: nil)
-        DataServices.share.name = currentUsers[indexPath.row]
+        DataServices.share.nameDisplay = currentUsers[indexPath.row]
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -66,7 +65,8 @@ class OnlineTableView: UITableViewController {
     @IBAction func signoutButtonPressed(_ sender: AnyObject) {
         do {
             try Auth.auth().signOut()
-            dismiss(animated: true, completion: nil)
+            NotificationCenter.default.post(name: Notification.Name.init("removeUser"), object: nil)
+           navigationController?.popToRootViewController(animated: true)
         } catch {
             
         }
