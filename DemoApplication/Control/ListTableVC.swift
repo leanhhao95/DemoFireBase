@@ -46,8 +46,8 @@ class ListTableVC: UITableViewController {
             var newItems: [ListModel] = []
             
             for item in snapshot.children {
-                let groceryItem = ListModel(snapshot: item as! DataSnapshot)
-                newItems.append(groceryItem)
+                let listItem = ListModel(snapshot: item as! DataSnapshot)
+                newItems.append(listItem)
             }
             self.items = newItems
             self.tableView.reloadData()
@@ -88,17 +88,8 @@ class ListTableVC: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        guard let cell = tableView.cellForRow(at: indexPath) else { return }
-//        let groceryItem = items[indexPath.row]
-//        let toggledCompletion = !groceryItem.completed
-//        toggleCellCheckbox(cell, isCompleted: toggledCompletion)
-//        groceryItem.ref?.updateChildValues([
-//            "completed": toggledCompletion
-//            ])
         performSegue(withIdentifier: "showDetail", sender: nil)
-        items.forEach { (user) in
-            NotificationCenter.default.post(name: Notification.Name.init("senderDisplayName"), object: user.name)
-        }
+
     }
     // MARK: Add Item
     

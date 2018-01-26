@@ -19,16 +19,17 @@ class LoginViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//        if AppDelegate.shared.isFirst == true {
-//            do {
-//                try Auth.auth().signOut()
-//            } catch {
-//
-//            }
-//            AppDelegate.shared.isFirst = false
-//        }
+        if AppDelegate.shared.isFirst == true {
+            do {
+                try Auth.auth().signOut()
+            } catch {
+
+            }
+            AppDelegate.shared.isFirst = false
+        }
         Auth.auth().addStateDidChangeListener() { auth, user in
             if user != nil{
+                DataServices.share.senderID = (Auth.auth().currentUser?.uid)!
                 self.performSegue(withIdentifier: self.loginToList, sender: nil)
             }
         }
