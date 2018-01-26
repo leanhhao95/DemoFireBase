@@ -83,9 +83,7 @@ class LoginViewController: UIViewController {
         
         present(alert, animated: true, completion: nil)
     }
-    
 }
-
 extension LoginViewController: UITextFieldDelegate {
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {

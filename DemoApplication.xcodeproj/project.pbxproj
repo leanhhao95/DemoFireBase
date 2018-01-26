@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2206ECD8201B2EFE006D58A2 /* CustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2206ECD7201B2EFE006D58A2 /* CustomCell.swift */; };
+		2206ECDA201B2F88006D58A2 /* MessageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2206ECD9201B2F88006D58A2 /* MessageViewController.swift */; };
+		2206ECDC201B317F006D58A2 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2206ECDB201B317F006D58A2 /* Message.swift */; };
 		223072A6201AD63D002D4AEC /* Channel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 223072A5201AD63D002D4AEC /* Channel.swift */; };
 		223072A8201AD8B1002D4AEC /* ChannelCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 223072A7201AD8B1002D4AEC /* ChannelCell.swift */; };
 		223072AA201AE849002D4AEC /* DataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 223072A9201AE849002D4AEC /* DataService.swift */; };
@@ -28,6 +31,9 @@
 /* Begin PBXFileReference section */
 		0B76DF0D6719E9998F34691E /* Pods-DemoApplication.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DemoApplication.release.xcconfig"; path = "Pods/Target Support Files/Pods-DemoApplication/Pods-DemoApplication.release.xcconfig"; sourceTree = "<group>"; };
 		10765E9617A54ACB7DAD5870 /* Pods-DemoApplication.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DemoApplication.debug.xcconfig"; path = "Pods/Target Support Files/Pods-DemoApplication/Pods-DemoApplication.debug.xcconfig"; sourceTree = "<group>"; };
+		2206ECD7201B2EFE006D58A2 /* CustomCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCell.swift; sourceTree = "<group>"; };
+		2206ECD9201B2F88006D58A2 /* MessageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageViewController.swift; sourceTree = "<group>"; };
+		2206ECDB201B317F006D58A2 /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		223072A5201AD63D002D4AEC /* Channel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Channel.swift; sourceTree = "<group>"; };
 		223072A7201AD8B1002D4AEC /* ChannelCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChannelCell.swift; sourceTree = "<group>"; };
 		223072A9201AE849002D4AEC /* DataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataService.swift; sourceTree = "<group>"; };
@@ -61,6 +67,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2206ECDD201B3E92006D58A2 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				2206ECD7201B2EFE006D58A2 /* CustomCell.swift */,
+				223072A7201AD8B1002D4AEC /* ChannelCell.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
 		2236E9502019C2A800BE2212 = {
 			isa = PBXGroup;
 			children = (
@@ -88,8 +103,8 @@
 				2246B4C5201ACBB3008AAF85 /* Model */,
 				2246B4C6201ACBC3008AAF85 /* Control */,
 				2236E97B2019D0C000BE2212 /* Main.storyboard */,
+				2206ECDD201B3E92006D58A2 /* Cell */,
 				223072A9201AE849002D4AEC /* DataService.swift */,
-				223072A7201AD8B1002D4AEC /* ChannelCell.swift */,
 				2236E9632019C2A800BE2212 /* Assets.xcassets */,
 				2236E9652019C2A800BE2212 /* LaunchScreen.storyboard */,
 				2236E9682019C2A800BE2212 /* Info.plist */,
@@ -103,6 +118,7 @@
 				2236E97D2019D0FB00BE2212 /* ListModel.swift */,
 				223072A5201AD63D002D4AEC /* Channel.swift */,
 				2236E9732019C69C00BE2212 /* User.swift */,
+				2206ECDB201B317F006D58A2 /* Message.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -114,6 +130,7 @@
 				2236E9812019E80500BE2212 /* ChatViewController.swift */,
 				2236E9712019C67000BE2212 /* ListTableVC.swift */,
 				2246B4C9201AD532008AAF85 /* ChannelTableView.swift */,
+				2206ECD9201B2F88006D58A2 /* MessageViewController.swift */,
 				2236E9752019C9B100BE2212 /* OnlineTableView.swift */,
 			);
 			path = Control;
@@ -282,6 +299,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2236E9742019C69C00BE2212 /* User.swift in Sources */,
+				2206ECDA201B2F88006D58A2 /* MessageViewController.swift in Sources */,
 				223072A6201AD63D002D4AEC /* Channel.swift in Sources */,
 				2236E9762019C9B100BE2212 /* OnlineTableView.swift in Sources */,
 				223072AA201AE849002D4AEC /* DataService.swift in Sources */,
@@ -291,7 +309,9 @@
 				2246B4CA201AD532008AAF85 /* ChannelTableView.swift in Sources */,
 				2236E95D2019C2A800BE2212 /* AppDelegate.swift in Sources */,
 				2236E97E2019D0FB00BE2212 /* ListModel.swift in Sources */,
+				2206ECD8201B2EFE006D58A2 /* CustomCell.swift in Sources */,
 				2236E9722019C67000BE2212 /* ListTableVC.swift in Sources */,
+				2206ECDC201B317F006D58A2 /* Message.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

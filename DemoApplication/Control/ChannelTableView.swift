@@ -112,8 +112,8 @@ class ChannelTableView: UITableViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         super.prepare(for: segue, sender: sender)
         if let channel = sender as? Channel {
-            let chatVc = segue.destination as! ChatViewController
-            chatVc.senderDisplayName = senderDisplayName
+            let chatVc = segue.destination as! MessageViewController
+            chatVc.senderDisplayName = senderDisplayName!
             chatVc.channel = channel
             chatVc.channelRef = channelRef.child(channel.id)
             chatVc.senderId = DataServices.share.senderID

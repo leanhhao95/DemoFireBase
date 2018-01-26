@@ -68,6 +68,7 @@ class ChatViewController: JSQMessagesViewController {
             messages.append(message)
         }
     }
+  
     // set text view của bubble
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = super.collectionView(collectionView, cellForItemAt: indexPath) as! JSQMessagesCollectionViewCell
@@ -77,9 +78,11 @@ class ChatViewController: JSQMessagesViewController {
             cell.textView?.textColor = UIColor.white
         } else {
             cell.textView?.textColor = UIColor.black
+           
         }
         return cell
     }
+    
     // gửi tin nhắn
     override func didPressSend(_ button: UIButton!, withMessageText text: String!, senderId: String!, senderDisplayName: String!, date: Date!) {
         let itemRef = messageRef.childByAutoId() // tạo một tham thiếu với 1 unique key
