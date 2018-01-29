@@ -8,6 +8,7 @@
 
 import UIKit
 import Firebase
+let dataService = DataServices.share
 class LoginViewController: UIViewController {
     
     // MARK: Constants
@@ -43,8 +44,7 @@ class LoginViewController: UIViewController {
     
     // MARK: Actions
     @IBAction func loginDidTouch(_ sender: AnyObject) {
-        Auth.auth().signIn(withEmail: textFieldLoginEmail.text!,
-                               password: textFieldLoginPassword.text!)
+       dataService.signIn(email: self.textFieldLoginEmail.text!, passWord: textFieldLoginPassword.text!)
     }
     
     @IBAction func signUpDidTouch(_ sender: AnyObject) {
@@ -56,14 +56,9 @@ class LoginViewController: UIViewController {
                                        style: .default) { action in
                                         let emailField = alert.textFields![0]
                                         let passwordField = alert.textFields![1]
-                                        
-                                        Auth.auth().createUser(withEmail: emailField.text!,
-                                                                   password: passwordField.text!) { user, error in
-                                                                    if error == nil {
-                                                                        Auth.auth().signIn(withEmail: self.textFieldLoginEmail.text!,
-                                                                                               password: self.textFieldLoginPassword.text!)
-                                                                    }
-                                        }
+                                        dataService.signUp(email: emailField.text!, passWord: passwordField.text!, completeHandle: {
+                                            dataService.signIn(email: self.textFieldLoginEmail.text!, passWord: self.textFieldLoginPassword.text!)
+                                        })
         }
         
         let cancelAction = UIAlertAction(title: "Cancel",

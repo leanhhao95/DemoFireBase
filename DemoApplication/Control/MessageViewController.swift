@@ -43,6 +43,7 @@ class MessageViewController: UIViewController, UITableViewDelegate,UITableViewDa
     }
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        
        
     }
     override func didReceiveMemoryWarning() {
@@ -65,7 +66,7 @@ class MessageViewController: UIViewController, UITableViewDelegate,UITableViewDa
         let cellItentifier = messages[indexPath.row].displayName == self.senderDisplayName ? "sentCell" : "reciveCell"
         let cell = tableView.dequeueReusableCell(withIdentifier: cellItentifier, for: indexPath) as! CustomCell
         cell.textView.text = messages[indexPath.row].text
-        cell.displayName.text = messages[indexPath.row].displayName
+        cell.displayName.text = "sender: \(messages[indexPath.row].displayName)"
         return cell
     }
     // đồng bộ dữ liệu với datasource
@@ -74,7 +75,7 @@ class MessageViewController: UIViewController, UITableViewDelegate,UITableViewDa
         
         let messageQuery = messageRef.queryLimited(toLast:25) // 1 tạo một truy vấn đồng bộ hoá tới 25 tin nhắn cuối cùng
         // 2. We can use the observe method to listen for new
-        // messages being written to the Firebase DB
+        // tin nhắn sẽ được ghi vào fb
         newMessageRefHandle = messageQuery.observe(.childAdded, with: { (snapshot) -> Void in
             // trích xuất data từ snapshot
             let messageData = snapshot.value as! Dictionary<String, String>

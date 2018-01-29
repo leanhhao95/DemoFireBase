@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 let loginToList = "LoginToList"
 let listToUsers = "ListToUsers"
 extension TimeInterval {
@@ -31,5 +32,19 @@ extension TimeInterval {
         dateFormatter.dateFormat = "EEEE"
         dateFormatter.locale = Locale(identifier: "yyyyMMddHHmmssSSS" )
         return dateFormatter.string(from: getDay )
+    }
+}
+
+class View: UITextView {
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        centerVertically()
+    }
+    func centerVertically() {
+        let fittingSize = CGSize(width: bounds.width, height: CGFloat.greatestFiniteMagnitude)
+        let size = sizeThatFits(fittingSize)
+        let topOffset = (bounds.size.height - size.height * zoomScale) / 2
+        let positiveTopOffset = max(1, topOffset)
+        contentOffset.y = -positiveTopOffset
     }
 }

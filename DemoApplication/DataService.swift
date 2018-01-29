@@ -7,9 +7,23 @@
 //
 
 import Foundation
+import Firebase
 class DataServices {
     static var share: DataServices = DataServices()
     var nameDisplay: String = ""
     var senderID: String = ""
     var email: String = ""
+    func signIn(email: String, passWord: String) {
+        Auth.auth().signIn(withEmail: email,
+                           password: passWord)
+    }
+    func signUp(email: String, passWord: String, completeHandle: @escaping () -> Void) {
+        Auth.auth().createUser(withEmail: email,
+                               password: passWord)
+        { user, error in
+            if error == nil {
+              completeHandle()
+            }
+        }
+    }
 }
