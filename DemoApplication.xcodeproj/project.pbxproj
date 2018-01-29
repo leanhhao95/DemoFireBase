@@ -22,9 +22,10 @@
 		2236E9762019C9B100BE2212 /* OnlineTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2236E9752019C9B100BE2212 /* OnlineTableView.swift */; };
 		2236E97C2019D0C100BE2212 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2236E97B2019D0C000BE2212 /* Main.storyboard */; };
 		2236E97E2019D0FB00BE2212 /* ListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2236E97D2019D0FB00BE2212 /* ListModel.swift */; };
-		2236E9802019E63B00BE2212 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2236E97F2019E63B00BE2212 /* GoogleService-Info.plist */; };
 		2236E9822019E80500BE2212 /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2236E9812019E80500BE2212 /* ChatViewController.swift */; };
 		2246B4CA201AD532008AAF85 /* ChannelTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2246B4C9201AD532008AAF85 /* ChannelTableView.swift */; };
+		22655582201EC9A200C723CF /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 22655581201EC9A200C723CF /* GoogleService-Info.plist */; };
+		22655584201ECE7300C723CF /* ListEmployeesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22655583201ECE7300C723CF /* ListEmployeesCell.swift */; };
 		4C721981BB8BF7FD6917C7C2 /* Pods_DemoApplication.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B39824DDA6259E46039B7CD9 /* Pods_DemoApplication.framework */; };
 /* End PBXBuildFile section */
 
@@ -49,9 +50,10 @@
 		2236E9752019C9B100BE2212 /* OnlineTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnlineTableView.swift; sourceTree = "<group>"; };
 		2236E97B2019D0C000BE2212 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		2236E97D2019D0FB00BE2212 /* ListModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListModel.swift; sourceTree = "<group>"; };
-		2236E97F2019E63B00BE2212 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		2236E9812019E80500BE2212 /* ChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
 		2246B4C9201AD532008AAF85 /* ChannelTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChannelTableView.swift; sourceTree = "<group>"; };
+		22655581201EC9A200C723CF /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		22655583201ECE7300C723CF /* ListEmployeesCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListEmployeesCell.swift; sourceTree = "<group>"; };
 		B39824DDA6259E46039B7CD9 /* Pods_DemoApplication.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DemoApplication.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -97,12 +99,13 @@
 		2236E95B2019C2A800BE2212 /* DemoApplication */ = {
 			isa = PBXGroup;
 			children = (
-				2236E97F2019E63B00BE2212 /* GoogleService-Info.plist */,
 				2236E9702019C4F300BE2212 /* DemoApplication.entitlements */,
+				22655581201EC9A200C723CF /* GoogleService-Info.plist */,
 				2236E95C2019C2A800BE2212 /* AppDelegate.swift */,
 				2246B4C5201ACBB3008AAF85 /* Model */,
 				2246B4C6201ACBC3008AAF85 /* Control */,
 				2236E97B2019D0C000BE2212 /* Main.storyboard */,
+				22655583201ECE7300C723CF /* ListEmployeesCell.swift */,
 				2206ECDD201B3E92006D58A2 /* Cell */,
 				223072A9201AE849002D4AEC /* DataService.swift */,
 				2236E9632019C2A800BE2212 /* Assets.xcassets */,
@@ -221,9 +224,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				2236E9672019C2A800BE2212 /* LaunchScreen.storyboard in Resources */,
-				2236E9802019E63B00BE2212 /* GoogleService-Info.plist in Resources */,
 				2236E9642019C2A800BE2212 /* Assets.xcassets in Resources */,
 				2236E97C2019D0C100BE2212 /* Main.storyboard in Resources */,
+				22655582201EC9A200C723CF /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -241,6 +244,7 @@
 				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
 				"${BUILT_PRODUCTS_DIR}/JSQMessagesViewController/JSQMessagesViewController.framework",
 				"${BUILT_PRODUCTS_DIR}/JSQSystemSoundPlayer/JSQSystemSoundPlayer.framework",
+				"${BUILT_PRODUCTS_DIR}/Protobuf/Protobuf.framework",
 				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
 				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
@@ -250,6 +254,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JSQMessagesViewController.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JSQSystemSoundPlayer.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Protobuf.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
@@ -300,6 +305,7 @@
 			files = (
 				2236E9742019C69C00BE2212 /* User.swift in Sources */,
 				2206ECDA201B2F88006D58A2 /* MessageViewController.swift in Sources */,
+				22655584201ECE7300C723CF /* ListEmployeesCell.swift in Sources */,
 				223072A6201AD63D002D4AEC /* Channel.swift in Sources */,
 				2236E9762019C9B100BE2212 /* OnlineTableView.swift in Sources */,
 				223072AA201AE849002D4AEC /* DataService.swift in Sources */,
@@ -377,7 +383,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -428,7 +434,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
@@ -443,10 +449,11 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = DemoApplication/DemoApplication.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = Z9S7H83RUG;
+				DEVELOPMENT_TEAM = 6247BHSB6J;
 				INFOPLIST_FILE = DemoApplication/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = AnhHao.DemoApplication;
+				PRODUCT_BUNDLE_IDENTIFIER = com.kawano.DemoApplication;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -460,10 +467,11 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = DemoApplication/DemoApplication.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = Z9S7H83RUG;
+				DEVELOPMENT_TEAM = 6247BHSB6J;
 				INFOPLIST_FILE = DemoApplication/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = AnhHao.DemoApplication;
+				PRODUCT_BUNDLE_IDENTIFIER = com.kawano.DemoApplication;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

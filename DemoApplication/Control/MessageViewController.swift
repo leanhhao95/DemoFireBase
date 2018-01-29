@@ -22,14 +22,14 @@ class MessageViewController: UIViewController, UITableViewDelegate,UITableViewDa
     var messages = [Message]()
     private lazy var messageRef: DatabaseReference = self.channelRef!.child("messages")
     private var newMessageRefHandle: DatabaseHandle?
-//    private lazy var usersTypingQuery: DatabaseQuery =
-//        self.channelRef!.child("typingIndicator").queryOrderedByValue().queryEqual(toValue: true)
+
     override func viewDidLoad() {
         super.viewDidLoad()
          observeMessages()
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+       title = channel?.name
         messageRef.queryOrdered(byChild: "name").observe(.value) { (snapshot) in
             var newItems: [Message] = []
             for item in snapshot.children {
@@ -99,7 +99,6 @@ class MessageViewController: UIViewController, UITableViewDelegate,UITableViewDa
             "senderName": senderDisplayName!,
             "text": text!,
             ]
-        
         itemRef.setValue(messageItem) // lưu dữ liệu tại vị trí child mới
 //        isTyping = false // reset typing sau khi ấn nút send
         
@@ -107,6 +106,16 @@ class MessageViewController: UIViewController, UITableViewDelegate,UITableViewDa
     @IBAction func sendDataButton(_ sender: UIButton) {
         didPressSend(sender, withMessageText: messageTextField.text, senderId: senderId, senderDisplayName: senderDisplayName, date: date)
     }
-   
+    func scrollToLastMessage() {
+        if messages.count != 0 {
+            UIView.animate(withDuration: 0, delay: 0, options: UIViewAnimationOptions.curveEaseOut, animations: {
+                self.view.layoutIfNeeded()
+            }, completion: { (completed) in
+                let indexPath = IndexPath(item: self.messages.count - 1 , section: 0)
+                self.tableView.scrollToRow(at: indexPath , at: .bottom, animated: true)
+            })
+        }
+    }
+    
 
 }

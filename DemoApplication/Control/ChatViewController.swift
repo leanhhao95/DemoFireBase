@@ -143,12 +143,11 @@ class ChatViewController: JSQMessagesViewController {
         userIsTypingRef.onDisconnectRemoveValue()
         //
         usersTypingQuery.observe(.value) { (data: DataSnapshot) in
-            // 2 You're the only one typing, don't show the indicator
+            // 2 nếu chỉ có 1 người gõ không show indicator
             if data.childrenCount == 1 && self.isTyping {
                 return
             }
-            
-            // 3 Are there others typing?
+            // 3 check xem có nhiều người gõ k
             self.showTypingIndicator = data.childrenCount > 0
             self.scrollToBottom(animated: true)
         }

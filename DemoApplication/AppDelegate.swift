@@ -7,9 +7,12 @@
 //
 
 import UIKit
+import UserNotifications
 import Firebase
+import FirebaseInstanceID
+import FirebaseMessaging
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate, MessagingDelegate {
     var isFirst: Bool? = true
     var window: UIWindow?
     static var shared = {
@@ -17,9 +20,38 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }()
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        
+        if #available(iOS 10.0, *) {
+            // For iOS 10 display notification (sent via APNS)
+            UNUserNotificationCenter.current().delegate = self
+            
+            let authOptions: UNAuthorizationOptions = [.alert, .badge, .sound]
+            UNUserNotificationCenter.current().requestAuthorization(
+                options: authOptions,
+                completionHandler: {_, _ in })
+            Messaging.messaging().delegate = self
+            let token = Messaging.messaging().fcmToken
+            print("token : \(token)")
+        } else {
+            let settings: UIUserNotificationSettings =
+                UIUserNotificationSettings(types: [.alert, .badge, .sound], categories: nil)
+            application.registerUserNotificationSettings(settings)
+        }
+        
+        application.registerForRemoteNotifications()
         FirebaseApp.configure()
-         Database.database().isPersistenceEnabled = true
+        Database.database().isPersistenceEnabled = true
         return true
+    }
+    // The callback to handle data message received via FCM for devices running iOS 10 or above.
+    func application(received remoteMessage: MessagingRemoteMessage) {
+        print(remoteMessage.appData)
+    }
+    func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String) {
+        print("Firebase registration token: \(fcmToken)")
+        
+        // TODO: If necessary send token to application server.
+        // Note: This callback is fired at each app startup and whenever a new token is generated.
     }
 
     func applicationWillResignActive(_ application: UIApplication) {
@@ -44,6 +76,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
 
-
+    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable: Any],
+                     fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
+       
+        let dict = userInfo["aps"] as! NSDictionary
+        let message = dict["alert"]
+        print(message!)
+        
+        completionHandler(UIBackgroundFetchResult.newData)
+    }
 }
 

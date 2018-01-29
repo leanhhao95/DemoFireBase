@@ -8,6 +8,7 @@
 
 import UIKit
 import Firebase
+
 class ListTableVC: UITableViewController {
     
     @IBOutlet weak var addButton: UIBarButtonItem!
@@ -21,7 +22,6 @@ class ListTableVC: UITableViewController {
     let usersRef = Database.database().reference(withPath: "online")
     var user: Users!
     var userCountBarButtonItem: UIBarButtonItem!
-    
     // MARK: UIViewController Lifecycle
     
     override func viewDidLoad() {
@@ -36,14 +36,7 @@ class ListTableVC: UITableViewController {
         userCountBarButtonItem.tintColor = UIColor.white
         navigationItem.leftBarButtonItem = userCountBarButtonItem
         
-        usersRef.observe(.value, with: { snapshot in
-            
-            if snapshot.exists() {
-                self.userCountBarButtonItem?.title = snapshot.childrenCount.description
-            } else {
-                self.userCountBarButtonItem?.title = "0"
-            }
-        })
+       
         ref.queryOrdered(byChild: "position").observe(.value, with: { snapshot in
             var newItems: [ListModel] = []
             
@@ -65,6 +58,13 @@ class ListTableVC: UITableViewController {
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        usersRef.observe(.value, with: { snapshot in
+            if snapshot.exists() {
+                self.userCountBarButtonItem?.title = "online: \(snapshot.childrenCount.description)"
+            } else {
+                self.userCountBarButtonItem?.title = "online: 0"
+            }
+        })
         registerNotification()
     }
     func registerNotification() {
@@ -86,20 +86,37 @@ class ListTableVC: UITableViewController {
     // MARK: UITableView Delegate methods
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return items.count
+        if let currentSection: Section = Section(rawValue: section) {
+            switch currentSection {
+            case .displayNumberUserCell:
+                return 1
+            case .displayDataFBCell:
+                return items.count
+            }
+        } else {
+            return 0
+        }
+      
     }
-    
+    override func numberOfSections(in tableView: UITableView) -> Int {
+        return 2
+    }
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "ItemCell", for: indexPath)
+        let cellIdentifier = indexPath.section == Section.displayNumberUserCell.rawValue ? "listCell" : "ItemCell"
+        let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath)
+        if indexPath.section == Section.displayNumberUserCell.rawValue {
+            if let numberUserCell = cell as? ListEmployeesCell {
+                numberUserCell.displayNumberUserOnline.text = "Click Để Vào Phòng Chat"
+            }
+        } else if indexPath.section == Section.displayDataFBCell.rawValue {
         cell.textLabel?.text =   items[indexPath.row].name
         cell.detailTextLabel?.text =   items[indexPath.row].position
-        
+        }
         
         return cell
     }
     
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-       
         if editingStyle == .delete {
             items[indexPath.row].ref?.removeValue()
         }
@@ -111,11 +128,14 @@ class ListTableVC: UITableViewController {
         } else {
             return false
         }
-        return false
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        performSegue(withIdentifier: "showDetail", sender: nil)
+        if userCountBarButtonItem.title == "online: 0" {
+            showAlert(vc: self, title: "Chưa đăng nhập", message: "Cần đăng nhập để tham gia phòng chat")
+        } else {
+            performSegue(withIdentifier: listToUsers, sender: nil)
+        }
 
     }
     // MARK: Add Item
@@ -154,7 +174,7 @@ class ListTableVC: UITableViewController {
     
     @objc func userCountButtonDidTouch() {
        
-        if userCountBarButtonItem.title == "0" {
+        if userCountBarButtonItem.title == "online: 0" {
             showAlert(vc: self, title: "Chưa đăng nhập", message: "Cần đăng nhập để tham gia phòng chat")
         } else {
              performSegue(withIdentifier: listToUsers, sender: nil)
@@ -179,6 +199,10 @@ class ListTableVC: UITableViewController {
         alertController.addAction(okAction)
           alertController.addAction(cancelAction)
         vc.present(alertController, animated: true, completion: nil)
+    }
+    enum Section: Int {
+        case displayNumberUserCell = 0
+        case displayDataFBCell
     }
 }
 
