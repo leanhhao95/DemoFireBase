@@ -11,7 +11,7 @@ import Firebase
 class LoginViewController: UIViewController {
     
     // MARK: Constants
-    let loginToList = "LoginToList"
+    
     
     // MARK: Outlets
     @IBOutlet weak var textFieldLoginEmail: UITextField!
@@ -33,7 +33,7 @@ class LoginViewController: UIViewController {
             if user != nil{
                 DataServices.share.senderID = (Auth.auth().currentUser?.uid)!
                 DataServices.share.email = (Auth.auth().currentUser?.email)!
-                self.performSegue(withIdentifier: self.loginToList, sender: nil)
+                self.performSegue(withIdentifier: loginToList, sender: nil)
             }
         }
         textFieldLoginEmail.text = ""

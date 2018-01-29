@@ -100,8 +100,6 @@ class MessageViewController: UIViewController, UITableViewDelegate,UITableViewDa
             "text": text!,
             ]
         itemRef.setValue(messageItem) // lưu dữ liệu tại vị trí child mới
-//        isTyping = false // reset typing sau khi ấn nút send
-        
     }
     @IBAction func sendDataButton(_ sender: UIButton) {
         didPressSend(sender, withMessageText: messageTextField.text, senderId: senderId, senderDisplayName: senderDisplayName, date: date)

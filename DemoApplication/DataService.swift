@@ -7,7 +7,6 @@
 //
 
 import Foundation
-
 class DataServices {
     static var share: DataServices = DataServices()
     var nameDisplay: String = ""

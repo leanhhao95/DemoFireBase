@@ -26,6 +26,7 @@
 		2246B4CA201AD532008AAF85 /* ChannelTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2246B4C9201AD532008AAF85 /* ChannelTableView.swift */; };
 		22655582201EC9A200C723CF /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 22655581201EC9A200C723CF /* GoogleService-Info.plist */; };
 		22655584201ECE7300C723CF /* ListEmployeesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22655583201ECE7300C723CF /* ListEmployeesCell.swift */; };
+		22655586201EDD3E00C723CF /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22655585201EDD3E00C723CF /* Extension.swift */; };
 		4C721981BB8BF7FD6917C7C2 /* Pods_DemoApplication.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B39824DDA6259E46039B7CD9 /* Pods_DemoApplication.framework */; };
 /* End PBXBuildFile section */
 
@@ -54,6 +55,7 @@
 		2246B4C9201AD532008AAF85 /* ChannelTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChannelTableView.swift; sourceTree = "<group>"; };
 		22655581201EC9A200C723CF /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		22655583201ECE7300C723CF /* ListEmployeesCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListEmployeesCell.swift; sourceTree = "<group>"; };
+		22655585201EDD3E00C723CF /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
 		B39824DDA6259E46039B7CD9 /* Pods_DemoApplication.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DemoApplication.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -72,6 +74,7 @@
 		2206ECDD201B3E92006D58A2 /* Cell */ = {
 			isa = PBXGroup;
 			children = (
+				22655583201ECE7300C723CF /* ListEmployeesCell.swift */,
 				2206ECD7201B2EFE006D58A2 /* CustomCell.swift */,
 				223072A7201AD8B1002D4AEC /* ChannelCell.swift */,
 			);
@@ -105,7 +108,7 @@
 				2246B4C5201ACBB3008AAF85 /* Model */,
 				2246B4C6201ACBC3008AAF85 /* Control */,
 				2236E97B2019D0C000BE2212 /* Main.storyboard */,
-				22655583201ECE7300C723CF /* ListEmployeesCell.swift */,
+				22655585201EDD3E00C723CF /* Extension.swift */,
 				2206ECDD201B3E92006D58A2 /* Cell */,
 				223072A9201AE849002D4AEC /* DataService.swift */,
 				2236E9632019C2A800BE2212 /* Assets.xcassets */,
@@ -194,6 +197,9 @@
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.Keychain = {
+								enabled = 1;
+							};
+							com.apple.Push = {
 								enabled = 1;
 							};
 						};
@@ -310,6 +316,7 @@
 				2236E9762019C9B100BE2212 /* OnlineTableView.swift in Sources */,
 				223072AA201AE849002D4AEC /* DataService.swift in Sources */,
 				223072A8201AD8B1002D4AEC /* ChannelCell.swift in Sources */,
+				22655586201EDD3E00C723CF /* Extension.swift in Sources */,
 				2236E95F2019C2A800BE2212 /* LoginViewControler.swift in Sources */,
 				2236E9822019E80500BE2212 /* ChatViewController.swift in Sources */,
 				2246B4CA201AD532008AAF85 /* ChannelTableView.swift in Sources */,
@@ -451,7 +458,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 6247BHSB6J;
 				INFOPLIST_FILE = DemoApplication/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.kawano.DemoApplication;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -469,7 +476,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 6247BHSB6J;
 				INFOPLIST_FILE = DemoApplication/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.kawano.DemoApplication;
 				PRODUCT_NAME = "$(TARGET_NAME)";

@@ -12,9 +12,6 @@ import Firebase
 class ListTableVC: UITableViewController {
     
     @IBOutlet weak var addButton: UIBarButtonItem!
-    // MARK: Constants
-    let listToUsers = "ListToUsers"
-    
     // MARK: Properties
     var items: [ListModel] = []
     
@@ -131,15 +128,11 @@ class ListTableVC: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if userCountBarButtonItem.title == "online: 0" {
-            showAlert(vc: self, title: "Chưa đăng nhập", message: "Cần đăng nhập để tham gia phòng chat")
-        } else {
-            performSegue(withIdentifier: listToUsers, sender: nil)
-        }
+        checkOnline()
 
     }
-    // MARK: Add Item
     
+    // MARK: Add Item
     @IBAction func addButtonDidTouch(_ sender: AnyObject) {
         let alert = UIAlertController(title: "",
                                       message: "Add an Item",
@@ -173,12 +166,7 @@ class ListTableVC: UITableViewController {
     }
     
     @objc func userCountButtonDidTouch() {
-       
-        if userCountBarButtonItem.title == "online: 0" {
-            showAlert(vc: self, title: "Chưa đăng nhập", message: "Cần đăng nhập để tham gia phòng chat")
-        } else {
-             performSegue(withIdentifier: listToUsers, sender: nil)
-        }
+        checkOnline()
     }
    
     func checkAdmin() {
@@ -186,6 +174,13 @@ class ListTableVC: UITableViewController {
             addButton.isEnabled = true
         } else {
             addButton.isEnabled = false
+        }
+    }
+    func checkOnline() {
+        if userCountBarButtonItem.title == "online: 0" {
+            showAlert(vc: self, title: "Chưa đăng nhập", message: "Cần đăng nhập để tham gia phòng chat")
+        } else {
+            performSegue(withIdentifier: listToUsers, sender: nil)
         }
     }
     func showAlert(vc: UIViewController, title:String, message: String) {
