@@ -13,17 +13,20 @@ class ListTableVC: UITableViewController {
     
     @IBOutlet weak var addButton: UIBarButtonItem!
     // MARK: Properties
-    var items: [ListModel] = []
     
+    var items: [ListModel] = []
     let ref = Database.database().reference(withPath: "Danh Sách Nhân Viên")
+    private var refHandle: DatabaseHandle?
     let usersRef = Database.database().reference(withPath: "online")
+    private var userHandle: DatabaseHandle?
     var user: Users!
     var userCountBarButtonItem: UIBarButtonItem!
-    // MARK: UIViewController Lifecycle
     
+    // MARK: UIViewController Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        observerRef()
+        observerUser()
         tableView.allowsMultipleSelectionDuringEditing = false
         
         userCountBarButtonItem = UIBarButtonItem(title: "",
@@ -32,19 +35,8 @@ class ListTableVC: UITableViewController {
                                                  action: #selector(userCountButtonDidTouch))
         userCountBarButtonItem.tintColor = UIColor.white
         navigationItem.leftBarButtonItem = userCountBarButtonItem
-        
-       
-        ref.queryOrdered(byChild: "position").observe(.value, with: { snapshot in
-            var newItems: [ListModel] = []
-            
-            for item in snapshot.children {
-                let listItem = ListModel(snapshot: item as! DataSnapshot)
-                newItems.append(listItem)
-            }
-            self.items = newItems
-            self.tableView.reloadData()
-        })
-//         kiểm tra login , remove user đã log out
+     
+        // thêm user và xoá user đã offline
         Auth.auth().addStateDidChangeListener { auth, user in
             guard let user = user else { return }
             self.user = Users(authData: user)
@@ -55,25 +47,26 @@ class ListTableVC: UITableViewController {
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        usersRef.observe(.value, with: { snapshot in
-            if snapshot.exists() {
-                self.userCountBarButtonItem?.title = "online: \(snapshot.childrenCount.description)"
-            } else {
-                self.userCountBarButtonItem?.title = "online: 0"
-            }
-        })
+  
         registerNotification()
     }
     func registerNotification() {
         NotificationCenter.default.addObserver(self, selector: #selector(reloadData), name: Notification.Name.init("removeUser"), object: nil)
     }
     @objc func reloadData() {
-            let currentUserRef = self.usersRef.child(self.user.uid)
-           currentUserRef.removeValue()
-    
+        let currentUserRef = self.usersRef.child(self.user.uid)
+        currentUserRef.removeValue()
+        
         tableView.reloadData()
     }
+    
     deinit {
+        if let refHand = refHandle {
+            ref.removeObserver(withHandle: refHand)
+        }
+        if let userHand = userHandle {
+            usersRef.removeObserver(withHandle: userHand)
+        }
         NotificationCenter.default.removeObserver(self)
     }
     override func viewDidAppear(_ animated: Bool) {
@@ -93,7 +86,6 @@ class ListTableVC: UITableViewController {
         } else {
             return 0
         }
-      
     }
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 2
@@ -106,8 +98,8 @@ class ListTableVC: UITableViewController {
                 numberUserCell.displayNumberUserOnline.text = "Click Để Vào Phòng Chat"
             }
         } else if indexPath.section == Section.displayDataFBCell.rawValue {
-        cell.textLabel?.text =   items[indexPath.row].name
-        cell.detailTextLabel?.text =   items[indexPath.row].position
+            cell.textLabel?.text = items[indexPath.row].name
+            cell.detailTextLabel?.text = items[indexPath.row].position
         }
         
         return cell
@@ -129,7 +121,7 @@ class ListTableVC: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         checkOnline()
-
+        
     }
     
     // MARK: Add Item
@@ -140,7 +132,7 @@ class ListTableVC: UITableViewController {
         
         let saveAction = UIAlertAction(title: "Save",
                                        style: .default) { _ in
-         
+                                        
                                         let nameText = alert.textFields![0]
                                         let positionText = alert.textFields![1]
                                         guard let firstText = nameText.text, let _ = positionText.text else {return}
@@ -164,11 +156,34 @@ class ListTableVC: UITableViewController {
         
         present(alert, animated: true, completion: nil)
     }
+    // MARK: firebase related methods
+    // Lấy dữ liệu từ firebase
+    func observerRef() {
+        refHandle = ref.queryOrdered(byChild: "position").observe(.value, with: { snapshot in
+            var newItems: [ListModel] = []
+            
+            for item in snapshot.children {
+                let listItem = ListModel(snapshot: item as! DataSnapshot)
+                newItems.append(listItem)
+            }
+            self.items = newItems
+            self.tableView.reloadData()
+        })
+    }
+    func observerUser() {
+      userHandle = usersRef.observe(.value, with: { snapshot in
+            if snapshot.exists() {
+                self.userCountBarButtonItem?.title = "online: \(snapshot.childrenCount.description)"
+            } else {
+                self.userCountBarButtonItem?.title = "online: 0"
+            }
+        })
+    }
     
     @objc func userCountButtonDidTouch() {
         checkOnline()
     }
-   
+    
     func checkAdmin() {
         if DataServices.share.email == "admin@gmail.com" {
             addButton.isEnabled = true
@@ -192,7 +207,7 @@ class ListTableVC: UITableViewController {
         }
         let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.default) { (result : UIAlertAction) -> Void in}
         alertController.addAction(okAction)
-          alertController.addAction(cancelAction)
+        alertController.addAction(cancelAction)
         vc.present(alertController, animated: true, completion: nil)
     }
     enum Section: Int {

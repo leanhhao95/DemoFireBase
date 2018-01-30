@@ -68,8 +68,6 @@ class ChannelTableView: UITableViewController {
         } else if indexPath.section == Section.currentChannelsSection.rawValue {
             cell.textLabel?.text = channels[indexPath.row].name
         }
-       
-
         return cell
     }
     // MARK: UITableviewDelegate
@@ -80,6 +78,7 @@ class ChannelTableView: UITableViewController {
         }
     }
     // MARK: Action
+    // Tạo kênh mới và thêm vào trên firebase
     @IBAction func createChannelButton(_ sender: Any) {
         if let name = newChannelTextField?.text { // check có tên kênh chưa
             let newChannelRef = channelRef.childByAutoId() // tạo một tham chiếu đến kênh mới bằng key childByAutoId
@@ -93,6 +92,7 @@ class ChannelTableView: UITableViewController {
     
     
     // MARK: firebase related methods
+    // Lấy dữ liệu từ firebase
     private func observeChannels() {
         channelRefHandle = channelRef.observe(.childAdded, with: { (snapshot) in
             //1:  xử lý 1 reference đến kênh, complete block mỗi khi có 1 kênh mới được thêm vào database trên fb

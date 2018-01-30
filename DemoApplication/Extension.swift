@@ -48,3 +48,25 @@ class View: UITextView {
         contentOffset.y = -positiveTopOffset
     }
 }
+class DemoGeneric {
+    var a = 5
+    var b = 6
+    func swapToIndex<T>( firstIndex:inout T, secondIndex:inout T) {
+        let temporaryA = firstIndex
+        firstIndex = secondIndex
+        secondIndex = temporaryA
+    }
+    func swap() {
+        swapToIndex(firstIndex: &a, secondIndex: &b)
+    }
+}
+protocol VCInNavigation {
+    
+    var numberVCInNav: Int? { get }
+    
+    func delegateSwipeBack(of viewController: UIViewController?, to delegate: UIViewController?)
+    
+    func enableSwipeBack(enable: Bool, for viewController: UIViewController?)
+    
+    func viewWillSwipeBack()
+}

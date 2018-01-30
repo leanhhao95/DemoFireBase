@@ -43,8 +43,6 @@ class MessageViewController: UIViewController, UITableViewDelegate,UITableViewDa
     }
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
-       
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -102,9 +100,12 @@ class MessageViewController: UIViewController, UITableViewDelegate,UITableViewDa
             ]
         itemRef.setValue(messageItem) // lưu dữ liệu tại vị trí child mới
     }
+    
+    // Action
     @IBAction func sendDataButton(_ sender: UIButton) {
         didPressSend(sender, withMessageText: messageTextField.text, senderId: senderId, senderDisplayName: senderDisplayName, date: date)
     }
+    // Support
     func scrollToLastMessage() {
         if messages.count != 0 {
             UIView.animate(withDuration: 0, delay: 0, options: UIViewAnimationOptions.curveEaseOut, animations: {
