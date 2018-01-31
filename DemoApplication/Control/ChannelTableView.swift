@@ -74,6 +74,8 @@ class ChannelTableView: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.section == Section.currentChannelsSection.rawValue {
             let channel = channels[indexPath.row]
+             messageService.channelRef = channelRef.child(channel.id)
+            print(channel.id)
             self.performSegue(withIdentifier: "ShowChannel", sender: channel)
         }
     }
@@ -85,7 +87,12 @@ class ChannelTableView: UITableViewController {
             let channelItem = [
                 "name": name
             ]  // tạo một dict để giữ dữ liệu cho kênh này
+            if channelItem["name"] != "" {
             newChannelRef.setValue(channelItem)
+            newChannelTextField?.text = ""
+            } else {
+                return
+            }
             // đặt tên cho kênh mới và tự động lưu vào database trên fb
         }
     }
@@ -115,7 +122,7 @@ class ChannelTableView: UITableViewController {
             let chatVc = segue.destination as! MessageViewController
             chatVc.senderDisplayName = senderDisplayName!
             chatVc.channel = channel
-            chatVc.channelRef = channelRef.child(channel.id)
+           
             chatVc.senderId = DataServices.share.senderID
         }
     }

@@ -9,24 +9,20 @@
 import UIKit
 import Firebase
 
-class ListTableVC: UITableViewController {
+class ListEmployessTableVC: UITableViewController {
     
     @IBOutlet weak var addButton: UIBarButtonItem!
     // MARK: Properties
-    
-    var items: [ListModel] = []
-    let ref = Database.database().reference(withPath: "Danh Sách Nhân Viên")
-    private var refHandle: DatabaseHandle?
-    let usersRef = Database.database().reference(withPath: "online")
-    private var userHandle: DatabaseHandle?
-    var user: Users!
+    var items = [ListModel]()
+   
     var userCountBarButtonItem: UIBarButtonItem!
     
     // MARK: UIViewController Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        observerRef()
         observerUser()
+        dataService.getInfoUser()
+        dataService.observerRef()
         tableView.allowsMultipleSelectionDuringEditing = false
         
         userCountBarButtonItem = UIBarButtonItem(title: "",
@@ -35,15 +31,6 @@ class ListTableVC: UITableViewController {
                                                  action: #selector(userCountButtonDidTouch))
         userCountBarButtonItem.tintColor = UIColor.white
         navigationItem.leftBarButtonItem = userCountBarButtonItem
-     
-        // thêm user và xoá user đã offline
-        Auth.auth().addStateDidChangeListener { auth, user in
-            guard let user = user else { return }
-            self.user = Users(authData: user)
-            let currentUserRef = self.usersRef.child(self.user.uid)
-            currentUserRef.setValue(self.user.email)
-            currentUserRef.onDisconnectRemoveValue()
-        }
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -51,34 +38,33 @@ class ListTableVC: UITableViewController {
         registerNotification()
     }
     func registerNotification() {
-        NotificationCenter.default.addObserver(self, selector: #selector(reloadData), name: Notification.Name.init("removeUser"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(getData), name: .sendItem, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(reloadData), name: .removeUser , object: nil)
     }
     @objc func reloadData() {
-        let currentUserRef = self.usersRef.child(self.user.uid)
+        let currentUserRef = dataService.usersRef.child(dataService.user.uid)
         currentUserRef.removeValue()
-        
+        tableView.reloadData()
+    }
+    @objc func getData() {
+        items = dataService.items
         tableView.reloadData()
     }
     
     deinit {
-        if let refHand = refHandle {
-            ref.removeObserver(withHandle: refHand)
-        }
-        if let userHand = userHandle {
-            usersRef.removeObserver(withHandle: userHand)
-        }
+      
         NotificationCenter.default.removeObserver(self)
     }
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         checkAdmin()
     }
-    // MARK: UITableView Delegate methods
+    // MARK: UITableView Delegate DataSource methods
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if let currentSection: Section = Section(rawValue: section) {
             switch currentSection {
-            case .displayNumberUserCell:
+            case .displayNextCell:
                 return 1
             case .displayDataFBCell:
                 return items.count
@@ -91,11 +77,11 @@ class ListTableVC: UITableViewController {
         return 2
     }
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cellIdentifier = indexPath.section == Section.displayNumberUserCell.rawValue ? "listCell" : "ItemCell"
+        let cellIdentifier = indexPath.section == Section.displayNextCell.rawValue ? "listCell" : "ItemCell"
         let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath)
-        if indexPath.section == Section.displayNumberUserCell.rawValue {
+        if indexPath.section == Section.displayNextCell.rawValue {
             if let numberUserCell = cell as? ListEmployeesCell {
-                numberUserCell.displayNumberUserOnline.text = "Click Để Vào Phòng Chat"
+                numberUserCell.displayNextLabel.text = "Click Để Vào Phòng Chat"
             }
         } else if indexPath.section == Section.displayDataFBCell.rawValue {
             cell.textLabel?.text = items[indexPath.row].name
@@ -120,8 +106,10 @@ class ListTableVC: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        checkOnline()
-        
+        checkOnline {
+                dataService.nameDisplay = dataService.user.email
+               self.performSegue(withIdentifier: nextToChannelView, sender: nil)
+        }
     }
     
     // MARK: Add Item
@@ -137,9 +125,8 @@ class ListTableVC: UITableViewController {
                                         let positionText = alert.textFields![1]
                                         guard let firstText = nameText.text, let _ = positionText.text else {return}
                                         let listItem = ListModel(name: nameText.text!, position: positionText.text!)
-                                        let firstItemRef = self.ref.child(firstText.lowercased())
+                                        let firstItemRef = dataService.ref.child(firstText.lowercased())
                                         firstItemRef.setValue(listItem.toAnyObject())
-                                        
         }
         let cancelAction = UIAlertAction(title: "Cancel",
                                          style: .default)
@@ -158,20 +145,9 @@ class ListTableVC: UITableViewController {
     }
     // MARK: firebase related methods
     // Lấy dữ liệu từ firebase
-    func observerRef() {
-        refHandle = ref.queryOrdered(byChild: "position").observe(.value, with: { snapshot in
-            var newItems: [ListModel] = []
-            
-            for item in snapshot.children {
-                let listItem = ListModel(snapshot: item as! DataSnapshot)
-                newItems.append(listItem)
-            }
-            self.items = newItems
-            self.tableView.reloadData()
-        })
-    }
+    
     func observerUser() {
-      userHandle = usersRef.observe(.value, with: { snapshot in
+      dataService.usersRef.observe(.value, with: { snapshot in
             if snapshot.exists() {
                 self.userCountBarButtonItem?.title = "online: \(snapshot.childrenCount.description)"
             } else {
@@ -181,9 +157,11 @@ class ListTableVC: UITableViewController {
     }
     
     @objc func userCountButtonDidTouch() {
-        checkOnline()
+        checkOnline {
+              self.performSegue(withIdentifier: listToUsers, sender: nil)
+        }
     }
-    
+    // Support
     func checkAdmin() {
         if DataServices.share.email == "admin@gmail.com" {
             addButton.isEnabled = true
@@ -191,11 +169,11 @@ class ListTableVC: UITableViewController {
             addButton.isEnabled = false
         }
     }
-    func checkOnline() {
+    func checkOnline(completeHandle: @escaping () -> Void) {
         if userCountBarButtonItem.title == "online: 0" {
             showAlert(vc: self, title: "Chưa đăng nhập", message: "Cần đăng nhập để tham gia phòng chat")
         } else {
-            performSegue(withIdentifier: listToUsers, sender: nil)
+            completeHandle()
         }
     }
     func showAlert(vc: UIViewController, title:String, message: String) {
@@ -211,7 +189,7 @@ class ListTableVC: UITableViewController {
         vc.present(alertController, animated: true, completion: nil)
     }
     enum Section: Int {
-        case displayNumberUserCell = 0
+        case displayNextCell = 0
         case displayDataFBCell
     }
 }

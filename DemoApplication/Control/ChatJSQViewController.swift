@@ -10,7 +10,7 @@ import UIKit
 import Firebase
 import JSQMessagesViewController
 // là một UICollectionVC hỗ trợ việc chat
-class ChatViewController: JSQMessagesViewController {
+class ChatJSQViewController: JSQMessagesViewController {
     var channelRef: DatabaseReference?
     var channel: Channel?
     var messages = [JSQMessage]()

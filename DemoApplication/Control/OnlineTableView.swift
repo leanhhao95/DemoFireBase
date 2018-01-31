@@ -28,7 +28,6 @@ class OnlineTableView: UITableViewController {
             let indexPath = IndexPath(row: row, section: 0)
             self.tableView.insertRows(at: [indexPath], with: .top)
         })
-        
         usersRef.observe(.childRemoved, with: { snap in
             guard let emailToFind = snap.value as? String else { return }
             for (index, email) in self.currentUsers.enumerated() {
@@ -48,9 +47,8 @@ class OnlineTableView: UITableViewController {
         return currentUsers.count
     }
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let cell = tableView.cellForRow(at: indexPath)
         performSegue(withIdentifier: "nextToChannelView", sender: nil)
-        DataServices.share.nameDisplay = currentUsers[indexPath.row]
+      dataService.nameDisplay = currentUsers[indexPath.row]
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -65,7 +63,7 @@ class OnlineTableView: UITableViewController {
     @IBAction func signoutButtonPressed(_ sender: AnyObject) {
         do {
             try Auth.auth().signOut()
-            NotificationCenter.default.post(name: Notification.Name.init("removeUser"), object: nil)
+            NotificationCenter.default.post(name: .removeUser, object: nil)
            navigationController?.popToRootViewController(animated: true)
         } catch {
             

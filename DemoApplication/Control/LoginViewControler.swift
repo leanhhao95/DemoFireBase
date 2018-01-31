@@ -8,7 +8,7 @@
 
 import UIKit
 import Firebase
-let dataService = DataServices.share
+
 class LoginViewController: UIViewController {
     
     // MARK: Constants
@@ -23,19 +23,8 @@ class LoginViewController: UIViewController {
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-//        if AppDelegate.shared.isFirst == true {
-//            do {
-//                try Auth.auth().signOut()
-//            } catch {
-//            }
-//            AppDelegate.shared.isFirst = false
-//        }
-        Auth.auth().addStateDidChangeListener() { auth, user in
-            if user != nil{
-                DataServices.share.senderID = (Auth.auth().currentUser?.uid)!
-                DataServices.share.email = (Auth.auth().currentUser?.email)!
-                self.performSegue(withIdentifier: loginToList, sender: nil)
-            }
+        dataService.checkLogin {
+             self.performSegue(withIdentifier: loginToList, sender: nil)
         }
         textFieldLoginEmail.text = ""
         textFieldLoginPassword.text = ""

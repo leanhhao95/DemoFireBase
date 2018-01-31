@@ -8,8 +8,18 @@
 
 import Foundation
 import UIKit
+// name segue
+let nextToChannelView = "nextToChannelView"
 let loginToList = "LoginToList"
 let listToUsers = "ListToUsers"
+// name service
+let dataService = DataServices.share
+let messageService = MesssageService.shared
+extension Notification.Name {
+    static let sendItem = Notification.Name.init("sendItem")
+    static let removeUser = Notification.Name.init("removeUser")
+    static let itemMessage = Notification.Name.init("itemMessage")
+}
 extension TimeInterval {
     func gethour() -> String {
         let hour = Date(timeIntervalSince1970: self)
@@ -48,25 +58,26 @@ class View: UITextView {
         contentOffset.y = -positiveTopOffset
     }
 }
-class DemoGeneric {
-    var a = 5
-    var b = 6
-    func swapToIndex<T>( firstIndex:inout T, secondIndex:inout T) {
-        let temporaryA = firstIndex
-        firstIndex = secondIndex
-        secondIndex = temporaryA
-    }
-    func swap() {
-        swapToIndex(firstIndex: &a, secondIndex: &b)
-    }
-}
-protocol VCInNavigation {
-    
-    var numberVCInNav: Int? { get }
-    
-    func delegateSwipeBack(of viewController: UIViewController?, to delegate: UIViewController?)
-    
-    func enableSwipeBack(enable: Bool, for viewController: UIViewController?)
-    
-    func viewWillSwipeBack()
-}
+//class DemoGeneric {
+//    var a = 5
+//    var b = 6
+//    func swapToIndex<T>( firstIndex:inout T, secondIndex:inout T) {
+//        let temporaryA = firstIndex
+//        firstIndex = secondIndex
+//        secondIndex = temporaryA
+//    }
+//    func swap() {
+//        swapToIndex(firstIndex: &a, secondIndex: &b)
+//    }
+//}
+//protocol VCInNavigation {
+//    
+//    var numberVCInNav: Int? { get }
+//    
+//    func delegateSwipeBack(of viewController: UIViewController?, to delegate: UIViewController?)
+//    
+//    func enableSwipeBack(enable: Bool, for viewController: UIViewController?)
+//    
+//    func viewWillSwipeBack()
+//}
+

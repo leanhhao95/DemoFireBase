@@ -10,7 +10,8 @@ import UIKit
 
 class ListEmployeesCell: UITableViewCell {
 
-    @IBOutlet weak var displayNumberUserOnline: UILabel!
+   
+    @IBOutlet weak var displayNextLabel: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

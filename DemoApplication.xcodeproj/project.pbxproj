@@ -17,16 +17,17 @@
 		2236E95F2019C2A800BE2212 /* LoginViewControler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2236E95E2019C2A800BE2212 /* LoginViewControler.swift */; };
 		2236E9642019C2A800BE2212 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2236E9632019C2A800BE2212 /* Assets.xcassets */; };
 		2236E9672019C2A800BE2212 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2236E9652019C2A800BE2212 /* LaunchScreen.storyboard */; };
-		2236E9722019C67000BE2212 /* ListTableVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2236E9712019C67000BE2212 /* ListTableVC.swift */; };
+		2236E9722019C67000BE2212 /* ListEmployessTableVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2236E9712019C67000BE2212 /* ListEmployessTableVC.swift */; };
 		2236E9742019C69C00BE2212 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2236E9732019C69C00BE2212 /* User.swift */; };
 		2236E9762019C9B100BE2212 /* OnlineTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2236E9752019C9B100BE2212 /* OnlineTableView.swift */; };
 		2236E97C2019D0C100BE2212 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2236E97B2019D0C000BE2212 /* Main.storyboard */; };
 		2236E97E2019D0FB00BE2212 /* ListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2236E97D2019D0FB00BE2212 /* ListModel.swift */; };
-		2236E9822019E80500BE2212 /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2236E9812019E80500BE2212 /* ChatViewController.swift */; };
+		2236E9822019E80500BE2212 /* ChatJSQViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2236E9812019E80500BE2212 /* ChatJSQViewController.swift */; };
 		2246B4CA201AD532008AAF85 /* ChannelTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2246B4C9201AD532008AAF85 /* ChannelTableView.swift */; };
 		22655582201EC9A200C723CF /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 22655581201EC9A200C723CF /* GoogleService-Info.plist */; };
 		22655584201ECE7300C723CF /* ListEmployeesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22655583201ECE7300C723CF /* ListEmployeesCell.swift */; };
 		22655586201EDD3E00C723CF /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22655585201EDD3E00C723CF /* Extension.swift */; };
+		22E6AE362021629400D16C0F /* MessageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22E6AE352021629400D16C0F /* MessageService.swift */; };
 		4C721981BB8BF7FD6917C7C2 /* Pods_DemoApplication.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B39824DDA6259E46039B7CD9 /* Pods_DemoApplication.framework */; };
 /* End PBXBuildFile section */
 
@@ -46,16 +47,17 @@
 		2236E9662019C2A800BE2212 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		2236E9682019C2A800BE2212 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2236E9702019C4F300BE2212 /* DemoApplication.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = DemoApplication.entitlements; sourceTree = "<group>"; };
-		2236E9712019C67000BE2212 /* ListTableVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListTableVC.swift; sourceTree = "<group>"; };
+		2236E9712019C67000BE2212 /* ListEmployessTableVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListEmployessTableVC.swift; sourceTree = "<group>"; };
 		2236E9732019C69C00BE2212 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		2236E9752019C9B100BE2212 /* OnlineTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnlineTableView.swift; sourceTree = "<group>"; };
 		2236E97B2019D0C000BE2212 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		2236E97D2019D0FB00BE2212 /* ListModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListModel.swift; sourceTree = "<group>"; };
-		2236E9812019E80500BE2212 /* ChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
+		2236E9812019E80500BE2212 /* ChatJSQViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatJSQViewController.swift; sourceTree = "<group>"; };
 		2246B4C9201AD532008AAF85 /* ChannelTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChannelTableView.swift; sourceTree = "<group>"; };
 		22655581201EC9A200C723CF /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		22655583201ECE7300C723CF /* ListEmployeesCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListEmployeesCell.swift; sourceTree = "<group>"; };
 		22655585201EDD3E00C723CF /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
+		22E6AE352021629400D16C0F /* MessageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageService.swift; sourceTree = "<group>"; };
 		B39824DDA6259E46039B7CD9 /* Pods_DemoApplication.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DemoApplication.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -108,9 +110,9 @@
 				2246B4C5201ACBB3008AAF85 /* Model */,
 				2246B4C6201ACBC3008AAF85 /* Control */,
 				2236E97B2019D0C000BE2212 /* Main.storyboard */,
-				22655585201EDD3E00C723CF /* Extension.swift */,
+				22E6AE3720217F3D00D16C0F /* support */,
 				2206ECDD201B3E92006D58A2 /* Cell */,
-				223072A9201AE849002D4AEC /* DataService.swift */,
+				22E6AE3420215FC300D16C0F /* Services */,
 				2236E9632019C2A800BE2212 /* Assets.xcassets */,
 				2236E9652019C2A800BE2212 /* LaunchScreen.storyboard */,
 				2236E9682019C2A800BE2212 /* Info.plist */,
@@ -133,13 +135,30 @@
 			isa = PBXGroup;
 			children = (
 				2236E95E2019C2A800BE2212 /* LoginViewControler.swift */,
-				2236E9812019E80500BE2212 /* ChatViewController.swift */,
-				2236E9712019C67000BE2212 /* ListTableVC.swift */,
+				2236E9712019C67000BE2212 /* ListEmployessTableVC.swift */,
 				2246B4C9201AD532008AAF85 /* ChannelTableView.swift */,
 				2206ECD9201B2F88006D58A2 /* MessageViewController.swift */,
 				2236E9752019C9B100BE2212 /* OnlineTableView.swift */,
+				2236E9812019E80500BE2212 /* ChatJSQViewController.swift */,
 			);
 			path = Control;
+			sourceTree = "<group>";
+		};
+		22E6AE3420215FC300D16C0F /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				22E6AE352021629400D16C0F /* MessageService.swift */,
+				223072A9201AE849002D4AEC /* DataService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		22E6AE3720217F3D00D16C0F /* support */ = {
+			isa = PBXGroup;
+			children = (
+				22655585201EDD3E00C723CF /* Extension.swift */,
+			);
+			path = support;
 			sourceTree = "<group>";
 		};
 		5DCF70B111C31A62D9719626 /* Pods */ = {
@@ -315,15 +334,16 @@
 				223072A6201AD63D002D4AEC /* Channel.swift in Sources */,
 				2236E9762019C9B100BE2212 /* OnlineTableView.swift in Sources */,
 				223072AA201AE849002D4AEC /* DataService.swift in Sources */,
+				22E6AE362021629400D16C0F /* MessageService.swift in Sources */,
 				223072A8201AD8B1002D4AEC /* ChannelCell.swift in Sources */,
 				22655586201EDD3E00C723CF /* Extension.swift in Sources */,
 				2236E95F2019C2A800BE2212 /* LoginViewControler.swift in Sources */,
-				2236E9822019E80500BE2212 /* ChatViewController.swift in Sources */,
+				2236E9822019E80500BE2212 /* ChatJSQViewController.swift in Sources */,
 				2246B4CA201AD532008AAF85 /* ChannelTableView.swift in Sources */,
 				2236E95D2019C2A800BE2212 /* AppDelegate.swift in Sources */,
 				2236E97E2019D0FB00BE2212 /* ListModel.swift in Sources */,
 				2206ECD8201B2EFE006D58A2 /* CustomCell.swift in Sources */,
-				2236E9722019C67000BE2212 /* ListTableVC.swift in Sources */,
+				2236E9722019C67000BE2212 /* ListEmployessTableVC.swift in Sources */,
 				2206ECDC201B317F006D58A2 /* Message.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

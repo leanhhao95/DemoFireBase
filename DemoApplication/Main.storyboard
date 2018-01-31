@@ -192,7 +192,7 @@
         <!--Danh Sach Nhan Vien-->
         <scene sceneID="GDd-Ja-sb5">
             <objects>
-                <tableViewController title="Danh Sach Nhan Vien" id="WRG-qR-ebT" customClass="ListTableVC" customModule="DemoApplication" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController title="Danh Sach Nhan Vien" id="WRG-qR-ebT" customClass="ListEmployessTableVC" customModule="DemoApplication" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="60" sectionHeaderHeight="22" sectionFooterHeight="22" id="rzx-FE-o1H">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -215,7 +215,7 @@
                                     </subviews>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <outlet property="displayNumberUserOnline" destination="ZaR-7H-Kub" id="cQn-cW-2Os"/>
+                                    <outlet property="displayNextLabel" destination="ZaR-7H-Kub" id="fa6-Vd-4cN"/>
                                 </connections>
                             </tableViewCell>
                             <tableViewCell userInteractionEnabled="NO" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ItemCell" textLabel="lFS-Be-nny" detailTextLabel="EUL-DG-a4q" rowHeight="60" style="IBUITableViewCellStyleSubtitle" id="en3-w1-wtA">
@@ -258,6 +258,7 @@
                     <connections>
                         <outlet property="addButton" destination="QGM-U2-dHv" id="vKN-rh-2WV"/>
                         <segue destination="EWM-o2-OPN" kind="show" identifier="ListToUsers" id="Rd7-oJ-blk"/>
+                        <segue destination="bDQ-Gq-aum" kind="show" identifier="nextToChannelView" id="tLX-AD-7Lh"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fRX-FK-8Yw" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -566,4 +567,7 @@
             <point key="canvasLocation" x="4830" y="569"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="tLX-AD-7Lh"/>
+    </inferredMetricsTieBreakers>
 </document>
