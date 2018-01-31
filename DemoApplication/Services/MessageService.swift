@@ -11,7 +11,7 @@ import Firebase
 class MesssageService {
     static let shared : MesssageService = MesssageService()
     var channelRef: DatabaseReference?
-    lazy var messageRef: DatabaseReference = self.channelRef!.child("messages")
+    lazy var messageRef: DatabaseReference! = self.channelRef!.child("messages")
     private var _messages: [Message]?
     var messages: [Message]! {
         get {
@@ -66,5 +66,10 @@ class MesssageService {
         itemRef.setValue(messageItem) // lưu dữ liệu tại vị trí child mới
         }
         completeHandle()
+    }
+    func resetAllValue() {
+        messageRef = nil
+        messages.removeAll()
+        _messages?.removeAll()
     }
 }

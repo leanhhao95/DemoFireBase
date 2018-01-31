@@ -18,7 +18,6 @@ class MessageViewController: UIViewController, UITableViewDelegate,UITableViewDa
     var channel: Channel?
     var date = Date()
     var messages = [Message]()
-   
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
        title = channel?.name
@@ -32,10 +31,12 @@ class MessageViewController: UIViewController, UITableViewDelegate,UITableViewDa
         NotificationCenter.default.addObserver(self, selector: #selector(reloadData), name: .itemMessage , object: nil)
     }
     @objc func reloadData() {
+       
         messages = messageService.messages
         tableView.reloadData()
     }
     deinit {
+         messageService.resetAllValue()
         NotificationCenter.default.removeObserver(self)
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -73,6 +74,13 @@ class MessageViewController: UIViewController, UITableViewDelegate,UITableViewDa
             })
         }
     }
-    
-
+   
+}
+extension MessageViewController:  UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if textField == messageTextField {
+            textField.resignFirstResponder()
+        }
+        return true
+    }
 }

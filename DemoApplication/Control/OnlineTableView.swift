@@ -40,7 +40,6 @@ class OnlineTableView: UITableViewController {
                 }
             }
         })
-        
     }
     
     // MARK: UITableView Delegate methods
@@ -59,10 +58,12 @@ class OnlineTableView: UITableViewController {
             dataService.nameDisplay = currentUsers[indexPath.row]
             if messageService.channelRef == nil {
                 messageService.channelRef = channelRef.child("\(dataService.senderID)\(self.key[indexPath.row])")
+                print(messageService.channelRef)
             }
             if messageService.messages == nil {
                 messageService.channelRef = channelRef.child("\(self.key[indexPath.row])\(dataService.senderID)")
-            }
+                 print(messageService.channelRef)
+            } 
         }
     }
     
