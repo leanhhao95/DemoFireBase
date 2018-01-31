@@ -9,20 +9,21 @@
 import UIKit
 import Firebase
 class OnlineTableView: UITableViewController {
-
+    
     // MARK: Constants
     let userCell = "UserCell"
     let usersRef = Database.database().reference(withPath: "online")
-    
+    let channelRef = Database.database().reference().child("channels")
     // MARK: Properties
     var currentUsers: [String] = []
-    
+    var key: [String] = []
     // MARK: UIViewController Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
         usersRef.observe(.childAdded, with: { snap in
             guard let email = snap.value as? String else { return }
+            self.key.append(snap.key)
             self.currentUsers.append(email)
             let row = self.currentUsers.count - 1
             let indexPath = IndexPath(row: row, section: 0)
@@ -34,6 +35,7 @@ class OnlineTableView: UITableViewController {
                 if email == emailToFind {
                     let indexPath = IndexPath(row: index, section: 0)
                     self.currentUsers.remove(at: index)
+                    self.key.remove(at: index)
                     self.tableView.deleteRows(at: [indexPath], with: .fade)
                 }
             }
@@ -47,8 +49,21 @@ class OnlineTableView: UITableViewController {
         return currentUsers.count
     }
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        performSegue(withIdentifier: "nextToChannelView", sender: nil)
-      dataService.nameDisplay = currentUsers[indexPath.row]
+        let cell = tableView.cellForRow(at: indexPath)
+        if currentUsers[indexPath.row] == dataService.email {
+            cell?.isUserInteractionEnabled = false
+            cell?.accessoryType = .detailDisclosureButton
+            tableView.reloadData()
+        } else {
+            performSegue(withIdentifier: "privateRoom", sender: nil)
+            dataService.nameDisplay = currentUsers[indexPath.row]
+            if messageService.channelRef == nil {
+                messageService.channelRef = channelRef.child("\(dataService.senderID)\(self.key[indexPath.row])")
+            }
+            if messageService.messages == nil {
+                messageService.channelRef = channelRef.child("\(self.key[indexPath.row])\(dataService.senderID)")
+            }
+        }
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -58,16 +73,25 @@ class OnlineTableView: UITableViewController {
         return cell
     }
     
-   
-   // MARK: Actions
+    
+    // MARK: Actions
     @IBAction func signoutButtonPressed(_ sender: AnyObject) {
-        do {
-            try Auth.auth().signOut()
-            NotificationCenter.default.post(name: .removeUser, object: nil)
-           navigationController?.popToRootViewController(animated: true)
-        } catch {
-            
+        dataService.signOut {
+            self.navigationController?.popViewController(animated: true)
         }
     }
-
+    // MARK: Navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        switch segue.identifier ?? "" {
+        case "privateRoom":
+            if let chatVc = segue.destination as? MessageViewController {
+                chatVc.channel = Channel(id: "1", name: "privateRoom")
+                chatVc.senderDisplayName = dataService.email
+                chatVc.senderId = DataServices.share.senderID
+            }
+        default:
+            return
+        }
+    }
+    
 }

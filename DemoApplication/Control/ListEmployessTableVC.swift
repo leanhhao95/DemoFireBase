@@ -170,7 +170,7 @@ class ListEmployessTableVC: UITableViewController {
         }
     }
     func checkOnline(completeHandle: @escaping () -> Void) {
-        if userCountBarButtonItem.title == "online: 0" {
+        if AppDelegate.shared.isFirst == false {
             showAlert(vc: self, title: "Chưa đăng nhập", message: "Cần đăng nhập để tham gia phòng chat")
         } else {
             completeHandle()

@@ -12,6 +12,8 @@ class DataServices {
     static var share: DataServices = DataServices()
     let ref = Database.database().reference(withPath: "Danh Sách Nhân Viên")
     let usersRef = Database.database().reference(withPath: "online")
+    var channelCount: Int?
+    
     private var userHandle: DatabaseHandle?
     private var _user: Users!
     var nameDisplay: String = ""
@@ -65,6 +67,7 @@ class DataServices {
             if user != nil{
                self.senderID = (Auth.auth().currentUser?.uid)!
               self.email = (Auth.auth().currentUser?.email)!
+                AppDelegate.shared.isFirst = true
                completeHandle()
             }
         }
@@ -73,6 +76,7 @@ class DataServices {
     func signIn(email: String, passWord: String) {
         Auth.auth().signIn(withEmail: email,
                            password: passWord)
+        
     }
     func signUp(email: String, passWord: String, completeHandle: @escaping () -> Void) {
         Auth.auth().createUser(withEmail: email,
@@ -83,4 +87,14 @@ class DataServices {
             }
         }
     }
+    func signOut(completeHandle: @escaping () -> Void ) {
+        do {
+            try Auth.auth().signOut()
+            AppDelegate.shared.isFirst = false
+            NotificationCenter.default.post(name: .removeUser, object: nil)
+           completeHandle()
+        } catch {
+            
+        }
+        }
 }

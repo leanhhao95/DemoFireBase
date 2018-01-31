@@ -75,7 +75,6 @@ class ChannelTableView: UITableViewController {
         if indexPath.section == Section.currentChannelsSection.rawValue {
             let channel = channels[indexPath.row]
              messageService.channelRef = channelRef.child(channel.id)
-            print(channel.id)
             self.performSegue(withIdentifier: "ShowChannel", sender: channel)
         }
     }
@@ -122,7 +121,6 @@ class ChannelTableView: UITableViewController {
             let chatVc = segue.destination as! MessageViewController
             chatVc.senderDisplayName = senderDisplayName!
             chatVc.channel = channel
-           
             chatVc.senderId = DataServices.share.senderID
         }
     }
