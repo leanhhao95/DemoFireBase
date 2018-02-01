@@ -109,7 +109,7 @@
 				2236E95C2019C2A800BE2212 /* AppDelegate.swift */,
 				2246B4C5201ACBB3008AAF85 /* Model */,
 				2246B4C6201ACBC3008AAF85 /* Control */,
-				2236E97B2019D0C000BE2212 /* Main.storyboard */,
+				2253A0B62022C918008798DB /* View */,
 				22E6AE3720217F3D00D16C0F /* support */,
 				2206ECDD201B3E92006D58A2 /* Cell */,
 				22E6AE3420215FC300D16C0F /* Services */,
@@ -142,6 +142,14 @@
 				2236E9812019E80500BE2212 /* ChatJSQViewController.swift */,
 			);
 			path = Control;
+			sourceTree = "<group>";
+		};
+		2253A0B62022C918008798DB /* View */ = {
+			isa = PBXGroup;
+			children = (
+				2236E97B2019D0C000BE2212 /* Main.storyboard */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		22E6AE3420215FC300D16C0F /* Services */ = {

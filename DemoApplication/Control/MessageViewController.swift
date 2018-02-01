@@ -24,7 +24,6 @@ class MessageViewController: UIViewController, UITableViewDelegate,UITableViewDa
          registerNotification()
         messageService.getListChat()
         messageService.observeMessages()
-       
     }
     // observer notification
     func registerNotification() {
